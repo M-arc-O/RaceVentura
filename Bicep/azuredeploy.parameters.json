@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "value": "raceventura"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "sku": {
+            "value": "Free"
+        },
+        "skucode": {
+            "value": "Free"
+        },
+        "repositoryUrl": {
+            "value": "https://github.com/M-arc-O/RaceVentura"
+        },
+        "branch": {
+            "value": "main"
+        },
+        "spClientId": {
+            "value": "<SP-CLIENT-ID>"
+        },
+        "repositoryToken": {
+            "value": "<YOUR-GITHUB-PAT>"
+        },
+        "appLocation": {
+            "value": "Client"
+        },
+        "apiLocation": {
+            "value": "Api"
+        },
+        "appArtifactLocation": {
+            "value": "wwwroot"
+        },
+        "resourceTags": {
+            "value": {
+                "Project": "RaceVentura"
+            }
+        },
+        "appSettings": {
+            "value": {}
+        }
+    }
+}

@@ -10,6 +10,29 @@ on:
       - main
 
 jobs:
+  deploy_resources_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Deploy Azure Resources
+    steps:
+      # Checkout code
+      - uses: actions/checkout@main
+
+      # Log into Azure
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ./Bicep/main.bicep
+          parameters: ./Bicep/azuredeploy.parameters.json repositoryToken=secrets.AZURE_GITHUB_PAT spClientId=secrets.AZURE_SP_CLIENT_ID
+          failOnStdErr: false
+
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
@@ -18,11 +41,16 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: "raceventura-kv"
+          secrets: 'webAppApiKey'
+        id: myGetSecretAction
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_WATER_037246E03 }}
+          azure_static_web_apps_api_token: ${{ steps.myGetSecretAction.outputs.webAppApiKey }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######

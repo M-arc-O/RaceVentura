@@ -11,6 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiIsolated", "ApiIsolated\ApiIsolated.csproj", "{162B3342-33B4-49D4-BFD9-F10C053B2025}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5A10CAC9-80FF-40F9-975D-FCDC0C46D55B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\azure-static-web-apps-ambitious-water-037246e03.yml = .github\workflows\azure-static-web-apps-ambitious-water-037246e03.yml
+		Bicep\main.bicep = Bicep\main.bicep
+		Bicep\azuredeploy.parameters.json = Bicep\azuredeploy.parameters.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
