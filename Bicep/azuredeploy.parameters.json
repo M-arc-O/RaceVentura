@@ -14,17 +14,8 @@
         "skucode": {
             "value": "Free"
         },
-        "repositoryUrl": {
-            "value": "https://github.com/M-arc-O/RaceVentura"
-        },
-        "branch": {
-            "value": "main"
-        },
         "spClientId": {
             "value": "<SP-CLIENT-ID>"
-        },
-        "repositoryToken": {
-            "value": "<YOUR-GITHUB-PAT>"
         },
         "appLocation": {
             "value": "Client"
