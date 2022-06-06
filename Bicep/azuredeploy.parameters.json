@@ -23,6 +23,12 @@
         "appArtifactLocation": {
             "value": "wwwroot"
         },
+        "adminLoginName": {
+            "value": "<FROM-SECRET>"
+        },
+        "adminLoginPassword": {
+            "value": "<FROM-SECRET>"
+        },
         "resourceTags": {
             "value": {
                 "Project": "RaceVentura"

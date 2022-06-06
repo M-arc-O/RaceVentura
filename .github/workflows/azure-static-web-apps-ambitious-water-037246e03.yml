@@ -30,7 +30,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./Bicep/main.bicep
-          parameters: ./Bicep/azuredeploy.parameters.json
+          parameters: ./Bicep/azuredeploy.parameters.json adminLoginName=${{ secrets.AZURE_DB_ADMIN_NAME }} adminLoginPassword=${{ secrets.AZURE_DB_ADMIN_PASSWORD }}
           failOnStdErr: false
 
   build_and_deploy_job:
