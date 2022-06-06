@@ -70,7 +70,7 @@ resource database 'Microsoft.Sql/servers/databases@2021-11-01-preview' = {
     zoneRedundant: false
     readScale: 'Disabled'
     autoPauseDelay: 60
-    minCapacity: 0
+    minCapacity: any('0.5')
   }
 }
 
