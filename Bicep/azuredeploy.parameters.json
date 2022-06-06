@@ -14,9 +14,6 @@
         "skucode": {
             "value": "Free"
         },
-        "spClientId": {
-            "value": "<SP-CLIENT-ID>"
-        },
         "appLocation": {
             "value": "Client"
         },

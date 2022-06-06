@@ -30,7 +30,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./Bicep/main.bicep
-          parameters: ./Bicep/azuredeploy.parameters.json spClientId=${{ secrets.AZURE_SP_CLIENT_ID }}
+          parameters: ./Bicep/azuredeploy.parameters.json
           failOnStdErr: false
 
   build_and_deploy_job:
