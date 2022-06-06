@@ -2,14 +2,10 @@ param name string
 param location string = resourceGroup().location
 param sku string
 param skucode string
-param repositoryUrl string
-param branch string
 
 @secure()
 param spClientId string
 
-@secure()
-param repositoryToken string
 param appLocation string
 param apiLocation string
 param appArtifactLocation string
@@ -59,9 +55,6 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-01-15' = {
   location: location
   tags: resourceTags
   properties: {
-    repositoryUrl: repositoryUrl
-    branch: branch
-    repositoryToken: repositoryToken
     buildProperties: {
       appLocation: appLocation
       apiLocation: apiLocation
