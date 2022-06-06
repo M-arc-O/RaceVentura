@@ -74,8 +74,10 @@ resource database 'Microsoft.Sql/servers/databases@2021-11-01-preview' = {
   }
 }
 
-// resource name_appsettings 'Microsoft.Web/staticSites/config@2021-01-15' = {
-//   parent: staticWebApp
-//   name: 'appsettings'
-//   properties: appSettings
-// }
+resource dbConnectionString 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+  name: 'dbConnectionString'
+  parent: keyVault // Pass key vault symbolic name as parent
+  properties: {
+    value: 'Server=tcp:${name}-dbs.${environment().suffixes.sqlServerHostname},1433;Initial Catalog=${name}-db;Persist Security Info=False;User ID=${adminLoginName};Password=${adminLoginPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+  }
+}
