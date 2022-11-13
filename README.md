@@ -51,4 +51,4 @@ Once you clone the project, open the solution in [Visual Studio 2022](https://vi
 
 ## Deploy to Azure Static Web Apps
 
-This application can be deployed to [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps), to learn how, check out [our quickstart guide](https://aka.ms/blazor-swa/quickstart).
+This application can be deployed to [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps), to learn how, check out [our quickstart guide](https://aka.ms/blazor-swa/quickstart). 
