@@ -2,31 +2,46 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
+        "applicationName": {
             "value": "raceventura"
         },
         "location": {
             "value": "West Europe"
         },
-        "sku": {
+        "staticWebAppSku": {
             "value": "Free"
         },
-        "skucode": {
+        "staticWebAppSkuNuma": {
             "value": "Free"
         },
-        "appLocation": {
+        "staticWebAppAppLocation": {
             "value": "Client"
         },
-        "apiLocation": {
+        "staticWebAppApiLocation": {
             "value": "Api"
         },
-        "appArtifactLocation": {
+        "staticWebAppAppArtifactLocation": {
             "value": "wwwroot"
+        },
+        "keyVaultName": {
+            "value": "<FROM-PIPELINE>"
+        },
+        "keyVaultSpObjectId": {
+            "value": "14a790b0-52de-4fed-91b8-7871920fcf0a"
+        },
+        "databaseName": {
+            "value": "<FROM-PIPELINE>"
         },
         "adminLoginName": {
             "value": "<FROM-SECRET>"
         },
         "adminLoginPassword": {
+            "value": "<FROM-SECRET>"
+        },
+        "dbUserLoginName": {
+            "value": "<FROM-SECRET>"
+        },
+        "dbUserLoginPassword": {
             "value": "<FROM-SECRET>"
         },
         "resourceTags": {

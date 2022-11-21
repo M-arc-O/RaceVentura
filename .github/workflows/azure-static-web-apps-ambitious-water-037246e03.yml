@@ -1,4 +1,8 @@
-name: Azure Static Web Apps CI/CD
+name: Race Ventura Azure Static Web Apps CI/CD
+
+env:
+  KV_NAME: raceventura-kv
+  DB_SERVER_NAME: raceventura-dbs
 
 on:
   push:
@@ -15,22 +19,18 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy Azure Resources
     steps:
-      # Checkout code
       - uses: actions/checkout@main
-
-      # Log into Azure
-      - uses: azure/login@v1
+      - name: azure login
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_SP_CREDENTIALS }}
-
-      # Deploy Bicep file
-      - name: deploy
+      - name: deploy bicep file
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP_NAME }}
           template: ./Bicep/main.bicep
-          parameters: ./Bicep/azuredeploy.parameters.json adminLoginName=${{ secrets.AZURE_DB_ADMIN_NAME }} adminLoginPassword=${{ secrets.AZURE_DB_ADMIN_PASSWORD }}
+          parameters: ./Bicep/main.parameters.json keyVaultName=${{ env.KV_NAME }} databaseName=${{ env.DB_SERVER_NAME }} adminLoginName=${{ secrets.AZURE_DB_ADMIN_NAME }} adminLoginPassword=${{ secrets.AZURE_DB_ADMIN_PASSWORD }} dbUserLoginName=${{ secrets.AZURE_DB_USER_NAME }} dbUserLoginPassword=${{ secrets.AZURE_DB_USER_PASSWORD }}
           failOnStdErr: false
 
   build_and_deploy_job:
@@ -46,32 +46,66 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_SP_CREDENTIALS }}
       - uses: Azure/get-keyvault-secrets@v1
-        with: 
-          keyvault: "raceventura-kv"
-          secrets: 'webAppApiKey'
-        id: myGetSecretAction
+        with:
+          keyvault: ${{ env.KV_NAME }}
+          secrets: "webAppApiKey, dbConnectionString"
+        id: myGetSecretAction  
+      - name: Get public IP
+        id: ip
+        uses: haythem/public-ip@v1.3
+      - name: Build Migration project
+        working-directory: ./BooKeeperWebApp.Database.Migration
+        run: dotnet build --configuration Release
+      - name: Add IP to database whitelist
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.42.0
+          inlineScript: |
+            az sql server firewall-rule create --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --server ${{ env.DB_SERVER_NAME }} --name PipelineRule --start-ip-address ${{ steps.ip.outputs.ipv4 }} --end-ip-address ${{ steps.ip.outputs.ipv4 }}
+      # - name: script
+      #   run: bash ./Scripts/FolderTree.sh ./
+      - name: Add login to database
+        shell: pwsh
+        run: |
+          .\Scripts\CreateDatabaseLogin.ps1 -dbServerName ${{ env.DB_SERVER_NAME }} -dbAdminUserName ${{ secrets.AZURE_DB_ADMIN_NAME }} -dbAdminPassword ${{ secrets.AZURE_DB_ADMIN_PASSWORD }} -loginName ${{ secrets.AZURE_DB_USER_NAME }} -password ${{ secrets.AZURE_DB_USER_PASSWORD }}
+      - name: Migrate database
+        working-directory: ./BooKeeperWebApp.Database.Migration
+        env:
+          ConnectionStrings:DefaultConnection: ${{ steps.myGetSecretAction.outputs.dbConnectionString }}
+        run: dotnet run
+      - name: Remove IP from database whitelist
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.42.0
+          inlineScript: |
+            az sql server firewall-rule delete --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --server ${{ env.DB_SERVER_NAME }} --name PipelineRule
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ steps.myGetSecretAction.outputs.webAppApiKey }}
-          repo_token: ${{ secrets.AZURE_GITHUB_PAT }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "Client" # App source code path
-          api_location: "Api" # Api source code path - optional
-          output_location: "wwwroot" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          app_location: "Client"
+          api_location: "Api"
+          output_location: "wwwroot"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_SP_CREDENTIALS }}
+      - uses: Azure/get-keyvault-secrets@v1
+        with:
+          keyvault: ${{ env.KV_NAME }}
+          secrets: "webAppApiKey"
+        id: myGetSecretAction
       - name: Close Pull Request
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_WATER_037246E03 }}
+          azure_static_web_apps_api_token: ${{ steps.myGetSecretAction.outputs.webAppApiKey }}
           action: "close"
