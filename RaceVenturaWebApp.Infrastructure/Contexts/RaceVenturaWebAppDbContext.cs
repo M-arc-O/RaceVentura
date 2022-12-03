@@ -14,7 +14,8 @@ public class RaceVenturaWebAppDbContext : DbContext
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfiguration(new RaceConfiguration());
-	}
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+    }
 
     public static void ConfigureDbContextOptions(DbContextOptionsBuilder optionsBuilder, string connectionString)
     {

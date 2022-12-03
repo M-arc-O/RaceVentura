@@ -7,10 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BooKeeperWebApp.Infrastructure\BooKeeperWebApp.Infrastructure.csproj" />
-		<ProjectReference Include="..\BooKeeperWebAppShared\BooKeeperWebApp.Shared.csproj" />
 		<ProjectReference Include="..\RaceVenturaWebApp.Infrastructure\RaceVenturaWebApp.Infrastructure.csproj" />
 		<ProjectReference Include="..\RaceVenturaWebApp.Shared\RaceVenturaWebApp.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AutoMapper" Version="12.0.0" />
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 	</ItemGroup>
 
 </Project>

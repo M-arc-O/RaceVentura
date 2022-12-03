@@ -54,7 +54,7 @@ jobs:
         id: ip
         uses: haythem/public-ip@v1.3
       - name: Build Migration project
-        working-directory: ./BooKeeperWebApp.Database.Migration
+        working-directory: ./RaceVenturaWebApp.Database.Migration
         run: dotnet build --configuration Release
       - name: Add IP to database whitelist
         uses: azure/CLI@v1
@@ -69,7 +69,7 @@ jobs:
         run: |
           .\Scripts\CreateDatabaseLogin.ps1 -dbServerName ${{ env.DB_SERVER_NAME }} -dbAdminUserName ${{ secrets.AZURE_DB_ADMIN_NAME }} -dbAdminPassword ${{ secrets.AZURE_DB_ADMIN_PASSWORD }} -loginName ${{ secrets.AZURE_DB_USER_NAME }} -password ${{ secrets.AZURE_DB_USER_PASSWORD }}
       - name: Migrate database
-        working-directory: ./BooKeeperWebApp.Database.Migration
+        working-directory: ./RaceVenturaWebApp.Database.Migration
         env:
           ConnectionStrings:DefaultConnection: ${{ steps.myGetSecretAction.outputs.dbConnectionString }}
         run: dotnet run

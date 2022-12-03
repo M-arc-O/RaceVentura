@@ -10,10 +10,11 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
+		<PackageReference Include="Radzen.Blazor" Version="4.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BooKeeperWebAppShared\BooKeeperWebApp.Shared.csproj" />
+		<ProjectReference Include="..\RaceVenturaWebApp.Shared\RaceVenturaWebApp.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ public class RaceConfiguration : IEntityTypeConfiguration<Race>
 {
     public void Configure(EntityTypeBuilder<Race> builder)
     {
-        builder.ToTable("Races");
+        builder.ToTable("Race");
         builder.HasKey(x => x.Id);
     }
 }

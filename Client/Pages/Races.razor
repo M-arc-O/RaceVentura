@@ -1,0 +1,74 @@
+﻿@page "/races"
+
+@using RaceVenturaWebApp.Shared
+@using RaceVenturaWebApp.Shared.Dtos;
+@using RaceVenturaWebApp.Shared.Models;
+@using Microsoft.AspNetCore.Authorization
+
+@inject HttpClient Http
+
+<PageTitle>Races</PageTitle>
+
+<h1>Races</h1>
+
+<p>
+    <label>
+        New title
+        <input @bind="newRaceName" />
+    </label>
+    <button @onclick="AddRace">
+        Update heading
+    </button>
+</p>
+
+@if (races == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bankAccount in races)
+            {
+                <tr>
+                    <td>@bankAccount.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private string newRaceName = "";
+    private RaceDto[]? races;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadRaces();
+        }
+        catch (Exception ex)
+        {
+            races = new[] { new RaceDto(Guid.NewGuid(), $"Frontend error: {ex.Message}") };
+        }
+    }
+
+    protected async Task AddRace()
+    {
+        var race = new AddRaceModel(newRaceName);
+        await Http.PostAsJsonAsync<AddRaceModel>("/api/race/create", race);
+        await LoadRaces();
+    }
+
+    private async Task LoadRaces()
+    {
+        races = await Http.GetFromJsonAsync<RaceDto[]>("/api/race/getall") ?? new RaceDto[] { };
+    }
+}

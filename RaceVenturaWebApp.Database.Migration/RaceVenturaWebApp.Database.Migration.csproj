@@ -8,11 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Scripts\0001-Create-bank-account-table.sql" />
+		<None Remove="Scripts\0001-Create-user-and-race-table.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Scripts\0001-Create-bank-account-table.sql">
+		<EmbeddedResource Include="Scripts\0001-Create-user-and-race-table.sql">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>

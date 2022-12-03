@@ -13,8 +13,8 @@
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.7.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\BooKeeperWebApp.Business\BooKeeperWebApp.Business.csproj" />
-		<ProjectReference Include="..\BooKeeperWebAppShared\BooKeeperWebApp.Shared.csproj" />
+	  <ProjectReference Include="..\RaceVenturaWebApp.Business\RaceVenturaWebApp.Business.csproj" />
+	  <ProjectReference Include="..\RaceVenturaWebApp.Shared\RaceVenturaWebApp.Shared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="host.json">

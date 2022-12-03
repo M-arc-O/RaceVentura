@@ -1,7 +1,7 @@
 {
-  "name": "bookeeperwebapp",
+  "name": "raceventurawebapp",
   "version": "1.0.0",
-  "description": "bookeeperwebapp",
+  "description": "raceventurawebapp",
   "scripts": {
     "start": "swa start http://localhost:5000 --api-devserver-url http://localhost:7071"
   },
