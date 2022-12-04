@@ -6,8 +6,9 @@ namespace RaceVenturaWebApp.Infrastructure.Contexts;
 public class RaceVenturaWebAppDbContext : DbContext
 {
 	public DbSet<Race>? BankAccounts { get; set; }
+    public DbSet<User>? Users { get; set; }
 
-	public RaceVenturaWebAppDbContext(DbContextOptions<RaceVenturaWebAppDbContext> options) : base(options)
+    public RaceVenturaWebAppDbContext(DbContextOptions<RaceVenturaWebAppDbContext> options) : base(options)
     {
 	}
 
