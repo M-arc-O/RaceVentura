@@ -26,6 +26,7 @@ namespace Api
             //{
             try
             {
+                var myClientPrincipal = ClientPrincipalRetreiver.GetClientPrincipal(req);
                 var response = req.CreateResponse(HttpStatusCode.OK);
                 response.WriteAsJsonAsync(myClientPrincipal);
                 return response;
