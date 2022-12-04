@@ -12,9 +12,9 @@ public class UserMiddleware : IFunctionsWorkerMiddleware
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
 
-    public UserMiddleware(IUserService userService, IMapper mapper)
+    public UserMiddleware(/*IUserService userService,*/ IMapper mapper)
     {
-        _userService = userService;
+        //_userService = userService;
         _mapper = mapper;
     }
 
