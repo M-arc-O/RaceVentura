@@ -24,11 +24,18 @@ namespace Api
 
             //if (myClientPrincipal?.UserId is not null)
             //{
+            try
+            {
                 var response = req.CreateResponse(HttpStatusCode.OK);
                 response.WriteAsJsonAsync(myClientPrincipal);
-            //}
-
-            return response;
+                return response;
+            }
+            catch(Exception ex)
+            {
+                var response = req.CreateResponse(HttpStatusCode.OK);
+                response.WriteAsJsonAsync(ex.Message);
+                return response;
+            }
         }
     }
 }
