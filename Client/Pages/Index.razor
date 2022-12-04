@@ -155,7 +155,7 @@
 
     private async Task MakeSureUserExsists()
     {
-        Console.WriteLine($"Url = {Http.BaseAddress}/api/user/get");
+        Console.WriteLine($"Url = {Http.BaseAddress}api/user/get");
         backendClientPrincipal = await Http.GetFromJsonAsync<ClientPrincipal>("/api/user/get") ?? new ClientPrincipal();
     }
 }
