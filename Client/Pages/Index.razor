@@ -155,13 +155,6 @@
 
     private async Task GetUserInformation()
     {
-        try
-        {
-            backendClientPrincipal = await Http.GetFromJsonAsync<ClientPrincipal>("/api/user/get") ?? new ClientPrincipal();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        backendClientPrincipal = await Http.GetFromJsonAsync<ClientPrincipal>("/api/user/get") ?? new ClientPrincipal();
     }
 }

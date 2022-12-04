@@ -50,14 +50,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            await LoadRaces();
-        }
-        catch (Exception ex)
-        {
-            races = new[] { new RaceDto(Guid.NewGuid(), $"Frontend error: {ex.Message}") };
-        }
+        await LoadRaces();
     }
 
     protected async Task AddRace()
