@@ -12,7 +12,7 @@ using RaceVenturaWebApp.Shared.Models;
 
 namespace Api
 {
-    public class RaceFunctions : FunctionBase
+    public class RaceFunctions //: FunctionBase
     {
         //private readonly IExecutor _excecutor;
         //private readonly IMapper _mapper;
