@@ -12,8 +12,8 @@ public static class DependencyInjectionConfiguration
 {
     public static void InitializeServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //services.AddDbContext<RaceVenturaWebAppDbContext>(options => 
-        //    RaceVenturaWebAppDbContext.ConfigureDbContextOptions(options, configuration.GetValue<string>("RaceVenturaWebAppConnectionString")));
+        services.AddDbContext<RaceVenturaWebAppDbContext>(options => 
+            RaceVenturaWebAppDbContext.ConfigureDbContextOptions(options, configuration.GetValue<string>("RaceVenturaWebAppConnectionString")));
 
         //services.AddBusinessServices();
         services.AddInfrastructureServices();
