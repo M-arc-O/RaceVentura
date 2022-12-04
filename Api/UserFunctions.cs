@@ -10,15 +10,15 @@ namespace Api
         [Function("GetUser")]
         public HttpResponseData GetUser([HttpTrigger(AuthorizationLevel.Function, "get", Route = "user/get")] HttpRequestData req)
         {
-            //var myClientPrincipal = ClientPrincipalRetreiver.GetClientPrincipal(req);
+            var myClientPrincipal = ClientPrincipalRetreiver.GetClientPrincipal(req);
 
-            var response = req.CreateResponse(HttpStatusCode.OK);
+            var response = req.CreateResponse(HttpStatusCode.InternalServerError);
 
-            //if (myClientPrincipal?.UserId is not null)
-            //{
-            //    response = req.CreateResponse(HttpStatusCode.OK);
-            //    response.WriteAsJsonAsync(myClientPrincipal);
-            //}
+            if (myClientPrincipal?.UserId is not null)
+            {
+                response = req.CreateResponse(HttpStatusCode.OK);
+                response.WriteAsJsonAsync(myClientPrincipal);
+            }
 
             return response;
         }
