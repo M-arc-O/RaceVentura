@@ -15,8 +15,8 @@ public static class DependencyInjectionConfiguration
         //services.AddDbContext<RaceVenturaWebAppDbContext>(options => 
         //    RaceVenturaWebAppDbContext.ConfigureDbContextOptions(options, configuration.GetValue<string>("RaceVenturaWebAppConnectionString")));
 
-        services.AddBusinessServices();
-        services.AddInfrastructureServices();
+        //services.AddBusinessServices();
+        //services.AddInfrastructureServices();
 
         var mappingConfig = new MapperConfiguration(mc =>
         {

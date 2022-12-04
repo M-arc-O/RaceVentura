@@ -9,14 +9,14 @@ using Microsoft.Azure.Functions.Worker.Middleware;
 namespace Api.Middleware;
 public class UserMiddleware : IFunctionsWorkerMiddleware
 {
-    private readonly IUserService _userService;
-    private readonly IMapper _mapper;
+    //private readonly IUserService _userService;
+    //private readonly IMapper _mapper;
 
-    public UserMiddleware(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    //public UserMiddleware(IUserService userService, IMapper mapper)
+    //{
+    //    _userService = userService;
+    //    _mapper = mapper;
+    //}
 
     public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
     {
