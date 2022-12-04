@@ -18,7 +18,7 @@ namespace Api
         [Function("GetUser")]
         public HttpResponseData GetUser([HttpTrigger(AuthorizationLevel.Function, "get", Route = "user/get")] HttpRequestData req)
         {
-            var myClientPrincipal = ClientPrincipalRetreiver.GetClientPrincipal(req);
+            //var myClientPrincipal = ClientPrincipalRetreiver.GetClientPrincipal(req);
 
             //var response = req.CreateResponse(HttpStatusCode.InternalServerError);
 
