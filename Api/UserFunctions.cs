@@ -20,13 +20,13 @@ namespace Api
         {
             var myClientPrincipal = ClientPrincipalRetreiver.GetClientPrincipal(req);
 
-            var response = req.CreateResponse(HttpStatusCode.InternalServerError);
+            //var response = req.CreateResponse(HttpStatusCode.InternalServerError);
 
-            if (myClientPrincipal?.UserId is not null)
-            {
-                response = req.CreateResponse(HttpStatusCode.OK);
+            //if (myClientPrincipal?.UserId is not null)
+            //{
+                var response = req.CreateResponse(HttpStatusCode.OK);
                 response.WriteAsJsonAsync(myClientPrincipal);
-            }
+            //}
 
             return response;
         }
